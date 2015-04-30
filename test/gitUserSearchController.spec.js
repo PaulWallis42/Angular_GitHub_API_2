@@ -14,11 +14,16 @@ describe('GitUserSearchController', function() {
 
   describe('when searching for a user', function() {
 
+    afterEach(function() {
+      httpBackend.verifyNoOutstandingExpectation();
+      httpBackend.verifyNoOutstandingRequest();
+ });
+
     var httpBackend;
     beforeEach(inject(function($httpBackend) {
-      httpBackend = $httpBackend
-      httpBackend
-        .when("GET", "https://api.github.com/search/users?access_token=c61a1a33552b46dba393272ca9fbda05387a6d7c&q=hello")
+     httpBackend = $httpBackend
+     httpBackend
+        .expectGET("https://api.github.com/search/users?access_token=c61a1a33552b46dba393272ca9fbda05387a6d7c&q=hello")
         .respond(
         { items: items }
       );
